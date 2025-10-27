@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dreycom Demo - Prototipo con Imágenes</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/quagga@0.12.1/dist/quagga.min.js"></script>
+</head>
+<body>
+    <!-- Header y Navegación -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <div class="logo-icon">D</div>
+                    <span>Dreycom Demo</span>
+                </div>
+                <div class="nav-links">
+                    <a href="#" class="nav-link active" data-page="home">Inicio</a>
+                    <a href="#" class="nav-link" data-page="scanner">Escanear</a>
+                    <a href="#" class="nav-link" data-page="producto">Producto</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Páginas -->
+    <main>
+        <!-- Página de Inicio -->
+        <section id="home" class="page active">
+            <div class="container">
+                <div class="hero">
+                    <h1>Dreycom Demo - Prototipo con Imágenes</h1>
+                    <p>Sistema de gestión de inventario para fundas de celulares con imágenes reales de productos</p>
+                    <a href="#" class="btn" data-page="scanner">Probar Escáner</a>
+                </div>
+
+                <h2 class="page-title">Características Principales</h2>
+                <div class="features">
+                    <div class="feature-card">
+                        <div class="feature-icon">🖼️</div>
+                        <h3>Multi-Formato</h3>
+                        <p>Soporte para imágenes en JPG, PNG, WEBP y cualquier formato moderno.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3>Base de Datos Completa</h3>
+                        <p>12 productos reales con información detallada y modelos compatibles.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3>Búsqueda Rápida</h3>
+                        <p>Encuentra productos por SKU con resultados instantáneos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Página del Escáner -->
+        <section id="scanner" class="page">
+            <div class="container">
+                <h2 class="page-title">Escáner de Códigos de Barras</h2>
+                <div class="scanner-container">
+                    <div class="scanner-view" id="scanner-view">
+                        <!-- La cámara se cargará aquí automáticamente -->
+                        <div class="scanner-overlay">
+                            <div class="scanner-frame">
+                                <div class="scanner-line"></div>
+                            </div>
+                            <p>Apunte el código de barras hacia el marco</p>
+                        </div>
+                    </div>
+                    
+                    <div class="scanner-controls">
+                        <button class="btn" id="toggle-camera">Cambiar Cámara</button>
+                        <button class="btn btn-primary" id="toggle-flash">Flash: OFF</button>
+                    </div>
+                    
+                    <div class="manual-input">
+                        <p>O ingrese manualmente un código SKU:</p>
+                        <div class="input-group">
+                            <input type="text" id="barcode-input" placeholder="Ej: DRE-SKU-001">
+                            <button class="btn btn-primary" id="search-product">Buscar</button>
+                        </div>
+                        <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--secondary);">
+                            Prueba con: DRE-SKU-001, NS00022, NS00426, DRE-SKU-004, etc.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Página del Producto -->
+        <section id="producto" class="page">
+            <div class="container">
+                <h2 class="page-title">Información del Producto</h2>
+                <div class="product-container">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <div class="image-placeholder">📱</div>
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-name" id="product-name">Producto no encontrado</h3>
+                            <div class="product-price" id="product-price">-</div>
+                            <p class="product-description" id="product-description">Escanea un código SKU o ingresa un código manualmente para ver la información del producto.</p>
+                            
+                            <div class="compatible-models">
+                                <h4>Modelos Compatibles:</h4>
+                                <div class="models-list" id="compatible-models">
+                                    <span class="model-tag">-</span>
+                                </div>
+                            </div>
+                            
+                            <div class="product-meta">
+                                <span id="product-code">SKU: -</span>
+                                <span id="product-category">Tipo: Funda para Celular</span>
+                            </div>
+                            <div class="actions">
+                                <button class="btn" id="back-to-scanner">Escanear Otro</button>
+                                <button class="btn btn-primary" id="simulate-scan">Simular Escaneo</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">Dreycom Demo</div>
+                <div class="footer-links">
+                    <a href="#" data-page="home">Inicio</a>
+                    <a href="#">Acerca de</a>
+                    <a href="#">Contacto</a>
+                </div>
+                <div class="copyright">
+                    &copy; 2023 Dreycom Demo. Soporte multi-formato de imágenes.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
