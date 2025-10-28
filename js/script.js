@@ -1,4 +1,22 @@
-// Base de datos REAL de productos de Dreycom CON FORMATOS MIXTOS
+// CONFIGURACIÓN MARCA DREYCOM
+const dreycomBrand = {
+    name: "DREYCOM",
+    legalName: "DREYCOM ELECTRONIC'S S.A.C.",
+    ruc: "20602272151",
+    logo: "assets/logo.png",
+    primaryColor: "#2563eb",
+    secondaryColor: "#1e40af",
+    accentColor: "#f59e0b",
+    textColor: "#1f2937",
+    backgroundColor: "#f8fafc",
+    slogan: "Accesorios que conectan contigo",
+    description: "Importación y distribución de accesorios tecnológicos",
+    address: "Av. República de Argentina Nro. 500, Urb. Lima Industrial, Lima, Perú",
+    website: "dreycom.com",
+    mission: "Somos una empresa peruana, dedicada a la importación y distribución de accesorios para celulares, cómputo y productos de tecnología."
+};
+
+// Base de datos REAL de productos de Dreycom
 const products = {
     "DRE001": {
         name: "360 CASE DISEÑO ESCARCHADO BORDE SILICONA GAMUZADO + POPSOCKET + MICA",
@@ -100,34 +118,118 @@ const products = {
 
 // Variables globales
 let scannerActive = false;
-let currentFacingMode = "environment"; // Cámara trasera por defecto
+let currentFacingMode = "environment";
 let flashOn = false;
 let currentStream = null;
 
-// Esperar a que el DOM esté completamente cargado
-document.addEventListener('DOMContentLoaded', function() {
-    console.log("🟢 DOM cargado - Iniciando aplicación");
+// FUNCIONES DE PERSONALIZACIÓN DREYCOM
+function applyBrandStyles() {
+    console.log("🎨 Aplicando estilos Dreycom...");
     
-    // Navegación entre páginas
+    // Los estilos ya están aplicados en el CSS con variables CSS
+    console.log("🟢 Estilos Dreycom aplicados correctamente");
+}
+
+function updateHeaderWithBrand() {
+    const scannerHeader = document.querySelector('.scanner-header');
+    if (scannerHeader) {
+        scannerHeader.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <img src="${dreycomBrand.logo}" alt="${dreycomBrand.name}" 
+                     style="height: 40px; width: auto; border-radius: 6px;" 
+                     onerror="this.style.display='none'">
+                <div style="text-align: center;">
+                    <div style="font-size: 1.5rem; font-weight: 700; color: ${dreycomBrand.primaryColor};">
+                        ${dreycomBrand.name} SCAN
+                    </div>
+                    <div style="font-size: 0.9rem; color: ${dreycomBrand.textColor}; margin-top: 0.25rem;">
+                        ${dreycomBrand.slogan}
+                    </div>
+                </div>
+            </div>
+            <p style="margin-top: 1rem; color: #6b7280;">
+                <strong>${dreycomBrand.description}</strong><br>
+                <small>Escanea cualquier código de barras para ver información del producto</small>
+            </p>
+        `;
+    }
+}
+
+function addDreycomFooter() {
+    const footerHTML = `
+        <div class="dreycom-footer">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 0.75rem; flex-wrap: wrap;">
+                <img src="${dreycomBrand.logo}" alt="${dreycomBrand.name}" 
+                     style="height: 24px; width: auto; border-radius: 4px;"
+                     onerror="this.style.display='none'">
+                <div>
+                    <div style="font-weight: 700; color: ${dreycomBrand.textColor};">
+                        ${dreycomBrand.legalName}
+                    </div>
+                    <div style="font-size: 0.75rem; color: #9ca3af;">
+                        RUC: ${dreycomBrand.ruc} | ${dreycomBrand.address}
+                    </div>
+                </div>
+            </div>
+            <div style="margin-bottom: 0.5rem;">
+                <strong style="color: ${dreycomBrand.primaryColor};">${dreycomBrand.slogan}</strong>
+            </div>
+            <div style="font-size: 0.8rem; color: #9ca3af; line-height: 1.4;">
+                ${dreycomBrand.mission}
+            </div>
+            <div style="margin-top: 0.75rem; font-size: 0.75rem; color: #6b7280;">
+                Sistema de Autoservicio Dreycom &copy; ${new Date().getFullYear()} | 
+                <a href="https://${dreycomBrand.website}" target="_blank" style="color: ${dreycomBrand.primaryColor}; text-decoration: none;">
+                    ${dreycomBrand.website}
+                </a>
+            </div>
+        </div>
+    `;
+    
+    document.querySelectorAll('.page').forEach(page => {
+        if (!page.querySelector('.dreycom-footer')) {
+            page.insertAdjacentHTML('beforeend', footerHTML);
+        }
+    });
+}
+
+// CÓDIGO PRINCIPAL DE LA APLICACIÓN
+document.addEventListener('DOMContentLoaded', function() {
+    console.log("🟢 DOM cargado - Iniciando aplicación Dreycom");
+    
+    // 🎨 APLICAR MARCA DREYCOM
+    applyBrandStyles();
+    updateHeaderWithBrand();
+    addDreycomFooter();
+    
+    // Navegación entre páginas - MEJORADO
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
             
-            // Actualizar enlace activo
+            const pageId = this.getAttribute('data-page');
+            const currentPage = document.querySelector('.page.active').id;
+            
+            // Evitar recargar la misma página
+            if (currentPage === pageId) {
+                console.log("🟡 Ya está en la página activa, ignorando...");
+                return;
+            }
+            
             document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
             this.classList.add('active');
             
-            // Mostrar página correspondiente
-            const pageId = this.getAttribute('data-page');
             document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
             
-            // Iniciar cámara automáticamente si vamos a la página del escáner
             if (pageId === 'scanner') {
                 console.log("🟡 Navegando a escáner - iniciando cámara");
+                // Esperar a que la transición de página termine
                 setTimeout(() => {
-                    startCamera();
-                }, 500);
+                    if (!scannerActive) {
+                        startCamera();
+                    }
+                }, 300);
             } else {
                 console.log("🟡 Navegando fuera de escáner - deteniendo cámara");
                 stopCamera();
@@ -135,19 +237,17 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Cambiar cámara
+    // Event listeners para controles
     document.getElementById('toggle-camera').addEventListener('click', function() {
         console.log("🟡 Botón cambiar cámara clickeado");
         toggleCamera();
     });
 
-    // Toggle flash
     document.getElementById('toggle-flash').addEventListener('click', function() {
         console.log("🟡 Botón flash clickeado");
         toggleFlash();
     });
 
-    // Búsqueda de producto
     document.getElementById('search-product').addEventListener('click', function() {
         const sku = document.getElementById('barcode-input').value.trim().toUpperCase();
         console.log("🟡 Búsqueda manual:", sku);
@@ -159,17 +259,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Simular escaneo
     document.getElementById('simulate-scan').addEventListener('click', function() {
         console.log("🟡 Simular escaneo clickeado");
-        // Seleccionar un SKU aleatorio de la base de datos
         const skus = Object.keys(products);
         const randomSku = skus[Math.floor(Math.random() * skus.length)];
-        
         searchProduct(randomSku);
     });
 
-    // Volver al escáner
     document.getElementById('back-to-scanner').addEventListener('click', function() {
         console.log("🟡 Volver a escáner clickeado");
         document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
@@ -178,16 +274,13 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
         document.getElementById('scanner').classList.add('active');
         
-        // Limpiar input
         document.getElementById('barcode-input').value = '';
         
-        // Reiniciar cámara
         setTimeout(() => {
             startCamera();
-        }, 500);
+        }, 300);
     });
 
-    // Permitir búsqueda con Enter
     document.getElementById('barcode-input').addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
             document.getElementById('search-product').click();
@@ -203,7 +296,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Función para iniciar la cámara
+// FUNCIONES DE CÁMARA Y ESCÁNER
 function startCamera() {
     console.log("🔴 DEBUG: Intentando iniciar cámara...");
     
@@ -212,12 +305,23 @@ function startCamera() {
         return;
     }
     
-    const scannerView = document.getElementById('scanner-view');
+    // Verificar que estamos en la página correcta
+    if (!document.getElementById('scanner').classList.contains('active')) {
+        console.log("🔴 No estamos en página escáner, cancelando inicio de cámara");
+        return;
+    }
     
-    // Limpiar contenido anterior
+    const scannerView = document.getElementById('scanner-view');
     scannerView.innerHTML = '';
     
-    // Crear elemento de video
+    // Mostrar estado de carga
+    scannerView.innerHTML = `
+        <div class="loading">
+            <div class="loading-spinner"></div>
+            <p>Iniciando cámara...</p>
+        </div>
+    `;
+    
     const video = document.createElement('video');
     video.id = 'scanner-video';
     video.style.width = '100%';
@@ -226,7 +330,6 @@ function startCamera() {
     video.setAttribute('playsinline', 'true');
     video.setAttribute('autoplay', 'true');
     
-    // Crear overlay con el marco de escaneo
     const overlay = document.createElement('div');
     overlay.className = 'scanner-overlay';
     overlay.innerHTML = `
@@ -236,10 +339,10 @@ function startCamera() {
         <p>Apunte el código de barras hacia el marco</p>
     `;
     
+    scannerView.innerHTML = '';
     scannerView.appendChild(video);
     scannerView.appendChild(overlay);
     
-    // Configurar constraints para la cámara
     const constraints = {
         video: {
             facingMode: currentFacingMode,
@@ -251,7 +354,6 @@ function startCamera() {
 
     console.log("🔴 DEBUG: Solicitando permisos de cámara...");
     
-    // Acceder a la cámara
     navigator.mediaDevices.getUserMedia(constraints)
         .then(function(stream) {
             console.log("🟢 Cámara accedida correctamente");
@@ -259,83 +361,97 @@ function startCamera() {
             video.srcObject = stream;
             scannerActive = true;
             
-            // Iniciar Quagga después de que el video esté listo
             video.addEventListener('loadedmetadata', function() {
                 console.log("🟢 Video cargado - iniciando Quagga");
-                startQuagga(video);
+                // Pequeño delay para asegurar que el video esté listo
+                setTimeout(() => {
+                    startQuagga(video);
+                }, 500);
             });
         })
         .catch(function(err) {
             console.error('❌ Error al acceder a la cámara:', err);
-            scannerView.innerHTML = `
-                <div style="text-align: center; padding: 2rem; color: #666;">
-                    <div class="scanner-frame" style="margin: 0 auto;">
-                        <div class="scanner-line"></div>
-                    </div>
-                    <p>Error al acceder a la cámara</p>
-                    <p style="font-size: 0.9rem;">${err.message}</p>
-                    <button class="btn btn-primary" onclick="startCamera()" style="margin-top: 1rem;">Reintentar</button>
-                </div>
-            `;
+            handleCameraError(err);
         });
 }
 
-// Función para iniciar Quagga
 function startQuagga(video) {
     console.log("🔴 DEBUG: Iniciando Quagga...");
     
-    Quagga.init({
-        inputStream: {
-            name: "Live",
-            type: "LiveStream",
-            target: video,
-            constraints: {
-                width: 640,
-                height: 480,
-                facingMode: currentFacingMode
+    // Verificar que estamos en la página correcta
+    if (!document.getElementById('scanner').classList.contains('active')) {
+        console.log("🔴 No estamos en página escáner, cancelando Quagga");
+        return;
+    }
+    
+    try {
+        Quagga.init({
+            inputStream: {
+                name: "Live",
+                type: "LiveStream",
+                target: video,
+                constraints: {
+                    width: 640,
+                    height: 480,
+                    facingMode: currentFacingMode
+                },
+                willReadFrequently: true // SOLUCIÓN PARA LA ADVERTENCIA
+            },
+            decoder: {
+                readers: [
+                    "code_128_reader",
+                    "ean_reader",
+                    "ean_8_reader",
+                    "code_39_reader",
+                    "code_39_vin_reader",
+                    "codabar_reader",
+                    "upc_reader",
+                    "upc_e_reader"
+                ]
+            },
+            locate: true,
+            frequency: 10 // Reduce la frecuencia para mejor rendimiento
+        }, function(err) {
+            if (err) {
+                console.error('❌ Error al iniciar Quagga:', err);
+                return;
             }
-        },
-        decoder: {
-            readers: [
-                "code_128_reader",
-                "ean_reader",
-                "ean_8_reader",
-                "code_39_reader",
-                "code_39_vin_reader",
-                "codabar_reader",
-                "upc_reader",
-                "upc_e_reader"
-            ]
-        },
-        locate: true
-    }, function(err) {
-        if (err) {
-            console.error('❌ Error al iniciar Quagga:', err);
-            return;
-        }
-        console.log("🟢 Quagga iniciado correctamente");
-        Quagga.start();
-    });
+            console.log("🟢 Quagga iniciado correctamente");
+            Quagga.start();
+        });
 
-    // Detectar códigos de barras
-    Quagga.onDetected(function(result) {
-        if (result && result.codeResult && result.codeResult.code) {
-            const code = result.codeResult.code;
-            
-            // Buscar producto con el código escaneado
-            searchProduct(code);
-            
-            // Pequeña vibración (si está disponible)
-            if (navigator.vibrate) {
-                navigator.vibrate(200);
+        Quagga.onDetected(function(result) {
+            if (result && result.codeResult && result.codeResult.code) {
+                const code = result.codeResult.code;
+                console.log("🟢 Código detectado:", code);
+                
+                // Detener temporalmente Quagga para evitar múltiples detecciones
+                Quagga.stop();
+                
+                searchProduct(code);
+                
+                // Feedback táctil
+                if (navigator.vibrate) {
+                    navigator.vibrate(200);
+                }
+                
+                // Reanudar Quagga después de un breve delay
+                setTimeout(() => {
+                    if (scannerActive) {
+                        Quagga.start();
+                    }
+                }, 2000);
             }
-        }
-    });
+        });
+    } catch (error) {
+        console.error('❌ Error crítico en Quagga:', error);
+    }
 }
 
-// Función para detener la cámara
 function stopCamera() {
     console.log("🔴 Deteniendo cámara...");
+    
+    // Detener stream de cámara
     if (currentStream) {
         currentStream.getTracks().forEach(track => {
             track.stop();
@@ -343,13 +459,18 @@ function stopCamera() {
         currentStream = null;
     }
     
-    if (scannerActive) {
-        Quagga.stop();
-        scannerActive = false;
+    // Detener Quagga solo si está activo
+    try {
+        if (scannerActive && typeof Quagga !== 'undefined') {
+            Quagga.stop();
+        }
+    } catch (e) {
+        console.log("Quagga ya estaba detenido");
     }
+    
+    scannerActive = false;
 }
 
-// Función para cambiar entre cámaras
 function toggleCamera() {
     console.log("🔴 Cambiando cámara...");
     stopCamera();
@@ -359,31 +480,27 @@ function toggleCamera() {
     }, 500);
 }
 
-// Función para toggle flash (solo en cámara trasera)
 function toggleFlash() {
     if (currentFacingMode !== "environment") {
         alert('El flash solo está disponible en la cámara trasera');
         return;
     }
     
-    // En una implementación real, aquí controlarías el flash
-    // Por ahora, solo cambiamos el texto del botón
     flashOn = !flashOn;
     document.getElementById('toggle-flash').textContent = `Flash: ${flashOn ? 'ON' : 'OFF'}`;
-    
-    // Aquí iría el código para controlar el flash nativo
     console.log('Flash:', flashOn ? 'ON' : 'OFF');
+    
+    // Nota: Para controlar el flash necesitarías una API específica
+    // Esta función actualmente solo cambia el texto del botón
 }
 
-// Función para buscar producto
 function searchProduct(sku) {
     console.log("🔴 Buscando producto:", sku);
     
-    // Limpiar el código
     let cleanSku = sku.toString()
-        .replace(/\*/g, '')  // Eliminar asteriscos
-        .trim()              // Eliminar espacios
-        .toUpperCase();      // Convertir a mayúsculas
+        .replace(/\*/g, '')
+        .trim()
+        .toUpperCase();
     
     console.log("🔴 SKU limpio:", cleanSku);
     
@@ -391,10 +508,9 @@ function searchProduct(sku) {
     
     if (product) {
         console.log("🟢 Producto encontrado:", product.name);
-        // Detener cámara temporalmente
         stopCamera();
         
-        // Actualizar información del producto
+        // Actualizar interfaz con información del producto
         document.getElementById('product-name').textContent = product.name;
         document.getElementById('product-price').textContent = product.price;
         document.getElementById('product-description').textContent = product.description;
@@ -405,10 +521,6 @@ function searchProduct(sku) {
         const productImage = document.querySelector('.product-image');
         if (product.image) {
             productImage.innerHTML = `<img src="${product.image}" alt="${product.name}" onerror="handleImageError(this)" />`;
-            const placeholder = productImage.querySelector('.image-placeholder');
-            if (placeholder) {
-                placeholder.style.display = 'none';
-            }
         } else {
             productImage.innerHTML = '<div class="image-placeholder">📱</div>';
         }
@@ -431,15 +543,34 @@ function searchProduct(sku) {
         document.getElementById('producto').classList.add('active');
     } else {
         console.log("❌ Producto no encontrado");
+        alert(`Producto con SKU "${cleanSku}" no encontrado. Prueba con DRE001 a DRE012.`);
         
-        // Mantener el escáner activo
-        if (!scannerActive) {
+        // Si no estamos en el escáner, volver al escáner
+        if (!document.getElementById('scanner').classList.contains('active')) {
+            document.querySelector('[data-page="scanner"]').click();
+        } else if (!scannerActive) {
             startCamera();
         }
     }
 }
 
-// Función para manejar errores de imagen
+function handleCameraError(err) {
+    const scannerView = document.getElementById('scanner-view');
+    scannerView.innerHTML = `
+        <div style="text-align: center; padding: 2rem; color: #666; background: #f8f9fa; border-radius: 12px;">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">📷</div>
+            <h3 style="margin-bottom: 1rem; color: #dc2626;">Error al acceder a la cámara</h3>
+            <p style="margin-bottom: 1rem; color: #6b7280;">${err.message || 'No se pudo acceder a la cámara'}</p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <button class="btn btn-primary" onclick="startCamera()">Reintentar</button>
+                <button class="btn btn-secondary" onclick="document.querySelector('[data-page=\\'producto\\']').click()">
+                    Usar búsqueda manual
+                </button>
+            </div>
+        </div>
+    `;
+}
+
 function handleImageError(img) {
     console.log("❌ Error cargando imagen");
     img.style.display = 'none';

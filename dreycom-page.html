@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="es-PE">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dreycom - Somos una empresa peruana, dedicada a la importación y distribución de accesorios para celulares, cómputo y productos de tecnología.</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* ESTILOS EXACTOS DREYCOM */
+        :root {
+            --dreycom-blue: #2563eb;
+            --dreycom-orange: #ef6919;
+            --dreycom-yellow: #f5a623;
+            --dreycom-dark: #1f2937;
+            --dreycom-light: #f8fafc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', 'Segoe UI', sans-serif;
+            background: var(--dreycom-light);
+            color: var(--dreycom-dark);
+        }
+
+        .website-wrapper {
+            min-height: 100vh;
+        }
+
+        /* HEADER IDÉNTICO */
+        .whb-header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .whb-top-bar {
+            background: var(--dreycom-dark);
+            color: white;
+            padding: 8px 0;
+            font-size: 0.9rem;
+        }
+
+        .container {
+            max-width: 1222px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .whb-flex-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .site-logo img {
+            max-width: 250px;
+            height: auto;
+        }
+
+        /* BARRA DE BÚSQUEDA IDÉNTICA */
+        .wd-search-form {
+            position: relative;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .wd-search-form form {
+            display: flex;
+            background: white;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 2px solid #e5e7eb;
+        }
+
+        .wd-search-form input {
+            flex: 1;
+            border: none;
+            padding: 12px 15px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .wd-search-form button {
+            background: var(--dreycom-blue);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .wd-search-form button:hover {
+            background: #1e40af;
+        }
+
+        /* MENÚ PRINCIPAL IDÉNTICO */
+        .whb-header-bottom {
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            padding: 12px 0;
+        }
+
+        .wd-header-cats {
+            position: relative;
+        }
+
+        .menu-opener {
+            background: var(--dreycom-blue);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+
+        .menu-opener-icon {
+            width: 16px;
+            height: 16px;
+            position: relative;
+        }
+
+        .menu-opener-icon::before,
+        .menu-opener-icon::after {
+            content: '';
+            position: absolute;
+            background: white;
+            height: 2px;
+            width: 100%;
+            left: 0;
+            transition: all 0.3s;
+        }
+
+        .menu-opener-icon::before {
+            top: 4px;
+        }
+
+        .menu-opener-icon::after {
+            bottom: 4px;
+        }
+
+        /* MENÚ HORIZONTAL IDÉNTICO */
+        .wd-header-main-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .wd-header-main-nav a {
+            text-decoration: none;
+            color: var(--dreycom-dark);
+            font-weight: 600;
+            font-size: 15px;
+            transition: color 0.3s;
+        }
+
+        .wd-header-main-nav a:hover {
+            color: var(--dreycom-blue);
+        }
+
+        /* BOTONES HEADER IDÉNTICOS */
+        .wd-button-wrapper {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-scheme-light {
+            background: var(--dreycom-orange);
+            color: white;
+        }
+
+        .btn-scheme-light:hover {
+            background: #d45a15;
+            transform: translateY(-1px);
+        }
+
+        /* BOTÓN ESCANEAR PRODUCTO (NUEVO) */
+        .btn-scan {
+            background: var(--dreycom-blue);
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-scan:hover {
+            background: #1e40af;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        /* HERO SECTION IDÉNTICA */
+        .main-banner {
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .main-banner h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .main-banner p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* PRODUCT GRID IDÉNTICO */
+        .products-section {
+            padding: 40px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--dreycom-dark);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            background: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dreycom-dark);
+        }
+
+        .product-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dreycom-blue);
+            margin-bottom: 1rem;
+        }
+
+        .product-description {
+            color: #6b7280;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        /* FEATURES SECTION IDÉNTICA */
+        .features-section {
+            background: white;
+            padding: 60px 0;
+            margin: 40px 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            text-align: center;
+        }
+
+        .feature-item {
+            padding: 20px;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dreycom-dark);
+        }
+
+        .feature-description {
+            color: #6b7280;
+            line-height: 1.5;
+        }
+
+        /* FOOTER IDÉNTICO */
+        .footer-container {
+            background: var(--dreycom-dark);
+            color: white;
+            padding: 40px 0 0;
+        }
+
+        .footer-sidebar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            padding-bottom: 40px;
+        }
+
+        .footer-column h5 {
+            color: white;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-column a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: white;
+        }
+
+        .copyrights-wrapper {
+            background: #111827;
+            padding: 20px 0;
+            text-align: center;
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .whb-flex-row {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .wd-button-wrapper {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn {
+                text-align: center;
+            }
+
+            .main-banner h1 {
+                font-size: 2rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body class="website-wrapper">
+    <!-- HEADER IDÉNTICO A DREYCOM -->
+    <header class="whb-header">
+        <!-- TOP BAR -->
+        <div class="whb-top-bar whb-not-sticky-row">
+            <div class="container">
+                <div class="whb-flex-row">
+                    <div class="whb-col-left">
+                        <strong>SOLO NOVEDADES</strong>
+                    </div>
+                    <div class="whb-col-right">
+                        <div class="wd-social-icons">
+                            <a href="#" class="social-facebook">FB</a>
+                            <a href="#" class="social-twitter">TW</a>
+                            <a href="#" class="social-instagram">IG</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN HEADER -->
+        <div class="whb-general-header whb-not-sticky-row">
+            <div class="container">
+                <div class="whb-flex-row">
+                    <div class="whb-col-left">
+                        <div class="site-logo">
+                            <a href="#" class="wd-logo">
+                                <img src="assets/logo.png" alt="Dreycom" onerror="this.src='https://via.placeholder.com/250x60/2563eb/ffffff?text=DREYCOM'">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="whb-col-center">
+                        <div class="wd-search-form">
+                            <form role="search" method="get" class="searchform">
+                                <input type="text" placeholder="Search for products" value="" name="s">
+                                <button type="submit">Search</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="whb-col-right">
+                        <div class="whb-space-element"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BOTTOM HEADER -->
+        <div class="whb-header-bottom whb-sticky-row">
+            <div class="container">
+                <div class="whb-flex-row">
+                    <div class="whb-col-left">
+                        <div class="wd-header-cats">
+                            <span class="menu-opener">
+                                <span class="menu-opener-icon"></span>
+                                <span class="menu-open-label">Categorías</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="whb-col-center">
+                        <div class="wd-header-main-nav">
+                            <ul>
+                                <li><a href="#">Tienda</a></li>
+                                <li><a href="#">Contáctenos</a></li>
+                                <li><a href="#">Nosotros</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="whb-col-right">
+                        <div class="wd-button-wrapper">
+                            <!-- CAMBIÉ "QURO" POR "QUIERO" -->
+                            <a href="#" class="btn btn-scheme-light">QUIERO</a>
+                            <a href="#" class="btn btn-scheme-light">LOS MEJORES PRECIOS</a>
+                            <!-- BOTÓN ESCANER - LISTO PARA ENLACE EXTERNO -->
+                            <a href="index.html" class="btn btn-scan">
+                                <span>🔍</span>
+                                ESCANEAR PRODUCTO
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL IDÉNTICO -->
+    <div class="main-page-wrapper">
+        <div class="container">
+            <!-- HERO BANNER -->
+            <div class="main-banner">
+                <div>
+                    <h1>DREYCOM</h1>
+                    <p>Accesorios que conectan contigo</p>
+                </div>
+            </div>
+
+            <!-- PRODUCTOS -->
+            <section class="products-section">
+                <h2 class="section-title">NUESTROS PRODUCTOS</h2>
+                <div class="products-grid">
+                    <!-- Producto 1 -->
+                    <div class="product-card">
+                        <div class="product-image">📱</div>
+                        <div class="product-info">
+                            <h3 class="product-title">CASE 360° DISEÑO ESCARCHADO</h3>
+                            <div class="product-price">S/ 29.00</div>
+                            <p class="product-description">Funda 360° con diseño escarchado, borde de silicona gamuzado, incluye popsocket y mica protectora.</p>
+                        </div>
+                    </div>
+
+                    <!-- Producto 2 -->
+                    <div class="product-card">
+                        <div class="product-image">📱</div>
+                        <div class="product-info">
+                            <h3 class="product-title">CASE 3 EN 1 TRANSPARENTE</h3>
+                            <div class="product-price">S/ 35.00</div>
+                            <p class="product-description">Funda 3 en 1 transparente en color celeste con gamuza integrada.</p>
+                        </div>
+                    </div>
+
+                    <!-- Producto 3 -->
+                    <div class="product-card">
+                        <div class="product-image">📱</div>
+                        <div class="product-info">
+                            <h3 class="product-title">CASE BRILLO PROTECTOR</h3>
+                            <div class="product-price">S/ 29.00</div>
+                            <p class="product-description">Funda brillo con protector de cámara, diseño interior gamuzado, incluye pulsera y mica.</p>
+                        </div>
+                    </div>
+
+                    <!-- Producto 4 -->
+                    <div class="product-card">
+                        <div class="product-image">📱</div>
+                        <div class="product-info">
+                            <h3 class="product-title">CASE DIAMANTADO</h3>
+                            <div class="product-price">S/ 29.00</div>
+                            <p class="product-description">Funda 360° con diseño diamantado, polvo de colores en el borde e incluye popsocket.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FEATURES -->
+            <section class="features-section">
+                <div class="container">
+                    <div class="features-grid">
+                        <div class="feature-item">
+                            <div class="feature-icon">🚚</div>
+                            <h3 class="feature-title">ENVÍOS A NIVEL NACIONAL</h3>
+                            <p class="feature-description">Hacemos llegar tu producto a todo el Perú.</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">🛡️</div>
+                            <h3 class="feature-title">COMPRAS SEGURAS</h3>
+                            <p class="feature-description">Con total seguridad y privacidad.</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">💬</div>
+                            <h3 class="feature-title">ASISTENCIA EN LÍNEA</h3>
+                            <p class="feature-description">Estamos atentos para ayudarte.</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">✅</div>
+                            <h3 class="feature-title">GARANTÍA Y RESPALDO</h3>
+                            <p class="feature-description">Garantía de fábrica.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- FOOTER IDÉNTICO -->
+    <footer class="footer-container">
+        <div class="container main-footer">
+            <div class="footer-sidebar">
+                <div class="footer-column">
+                    <h5>SOBRE DREYCOM</h5>
+                    <ul>
+                        <li><a href="#">Tiendas</a></li>
+                        <li><a href="#">Sobre nosotros</a></li>
+                        <li><a href="#">Trabaja con nosotros</a></li>
+                        <li><a href="#">Prensa</a></li>
+                        <li><a href="#">Contáctenos</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h5>SERVICIO AL CLIENTE</h5>
+                    <ul>
+                        <li><a href="#">Servicio al cliente</a></li>
+                        <li><a href="#">Términos y condiciones</a></li>
+                        <li><a href="#">Libro de Reclamaciones</a></li>
+                        <li><a href="#">Políticas de datos</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h5>ASISTENCIA</h5>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Returns</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="copyrights-wrapper">
+            <div class="container">
+                <div class="min-footer">
+                    <div class="col-left">
+                        Copyright 2024 ©Dreycom. Todos los derechos reservados.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
