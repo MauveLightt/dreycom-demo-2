@@ -1,4 +1,8 @@
 {
-  "cleanUrls": true,
-  "trailingSlash": false
+  "routes": [
+    {
+      "src": "/dreycom",
+      "dest": "/dreycom-page.html"
+    }
+  ]
 }
